@@ -9,6 +9,8 @@ COPY Backend/package.json ./
 
 COPY .env.example .env
 
+ENV NODE_ENV=development
+
 # Step 4: Install dependencies, including dev dependencies
 RUN npm install
 
