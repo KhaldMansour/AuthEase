@@ -34,7 +34,7 @@ describe('UsersController', () => {
 
       const result = await usersController.profile(mockRequest); 
 
-      expect(result).toEqual(5); 
+      expect(result).toEqual(mockUser); 
     });
   });
 });
