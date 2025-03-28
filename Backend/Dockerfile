@@ -9,7 +9,7 @@ COPY Backend/package.json ./
 COPY Backend/package-lock.json ./
 
 # Step 4: Copy .env.example as .env (if you have the .env file in Backend folder)
-COPY Backend/.env.example .env
+# COPY .env.example .env
 
 # Step 5: Set environment variable for development
 ENV NODE_ENV=development
