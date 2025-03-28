@@ -24,4 +24,4 @@ ENV NODE_ENV=development
 EXPOSE 3000
 
 # Step 8: Run the app in development mode (watch mode)
-CMD ["node", "dist/main"]
+CMD ["npm", "run", "start:dev"]

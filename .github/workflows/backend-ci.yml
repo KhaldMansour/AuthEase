@@ -41,6 +41,10 @@ jobs:
       - name: Run Tests inside Docker container
         run: |
           docker-compose logs backend
+          
+      - name: Run Tests inside Docker container
+        run: |
+            docker ps -a
 
       # Step 7: Tear down containers after tests
       - name: Tear down containers
