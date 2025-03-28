@@ -33,9 +33,9 @@ jobs:
         run: |
           docker-compose up -d --build
 
-      - name: Build the application inside Docker container
-        run: |
-          docker-compose exec backend npm run build
+    #   - name: Build the application inside Docker container
+    #     run: |
+    #       docker-compose exec backend npm run build
 
       # Step 6: Run the tests inside the running backend container
       - name: Run Tests inside Docker container
