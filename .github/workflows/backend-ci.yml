@@ -33,15 +33,10 @@ jobs:
         run: |
           docker-compose -f docker-compose.yaml up -d --build
 
-      # Step 5: Wait for MongoDB to be ready
-      - name: Wait for MongoDB to be ready
-        run: |
-          sleep 15
-
       # Step 6: Run the tests inside the running backend container
       - name: Run Tests inside Docker container
         run: |
-          docker exec -it backend npm run test -- --coverage
+          docker exec backend npm run test -- --coverage
 
       # Step 7: Tear down containers after tests
       - name: Tear down containers
