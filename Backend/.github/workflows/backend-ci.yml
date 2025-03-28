@@ -1,0 +1,38 @@
+name: Backend CI
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'  # Specify the correct Node.js version
+
+      # Step 5: Run Lint (run npm run lint inside the backend folder)
+      - name: Run Lint
+        run: |
+          cd backend
+          npm run lint
+
+      # Step 6: Run Tests (run npm run test inside the backend folder)
+      - name: Run Tests
+        run: |
+          cd backend
+          npm run test -- --coverage

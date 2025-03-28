@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  # MongoDb service
+  
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: nestjs_db
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
+    volumes:
+      - mongodb-data:/data/db
+
+  # Backend service (NestJS)
+  backend:
+    build:
+      context: .
+      dockerfile: Backend/Dockerfile
+    container_name: backend
+    environment:
+      - DATABASE_URL=mongodb://mongodb:27017/nestjs_db
+      - JWT_SECRET=secret
+      - JWT_EXPIRES_IN=3h
+    depends_on:
+      - mongodb
+    ports:
+      - "4000:3000"
+    volumes:
+      - ./Backend:/app 
+    networks:
+      - app-network
+
+  # Frontend service (NextJS)
+  frontend:
+    build:
+      context: .
+      dockerfile: Frontend/Dockerfile
+    container_name: frontend
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:4000  # Backend API URL for frontend
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"  # Exposing NextJS on port 3000
+    volumes:
+      - ./Frontend:/app  # Mount local code to container
+      - /app/node_modules 
+    networks:
+      - app-network
+
+# Define the network
+networks:
+  app-network:
+    driver: bridge
+
+# Volumes for Mongo data persistence
+volumes:
+  mongodb-data:
+    driver: local
