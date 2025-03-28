@@ -31,13 +31,13 @@ jobs:
       # Step 4: Build and start containers with Docker Compose
       - name: Build and start containers
         run: |
-          docker-compose -f docker-compose.yaml up -d --build
+          docker-compose up -d --build
 
 
       # Step 6: Run the tests inside the running backend container
       - name: Run Tests inside Docker container
         run: |
-          docker ps
+          docker ps -a
 
       # Step 7: Tear down containers after tests
       - name: Tear down containers
