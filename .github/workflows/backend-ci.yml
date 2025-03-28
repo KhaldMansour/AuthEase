@@ -1,0 +1,58 @@
+name: Backend CI with Docker
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Step 2: Set up Docker
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      # Step 3: Cache Docker layers (optional but speeds up builds)
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-docker-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-docker-
+
+      # Step 4: Set up Docker Compose
+      - name: Set up Docker Compose
+        run: |
+          sudo apt-get install -y docker-compose
+
+      # Step 5: Build and start containers with Docker Compose
+      - name: Build and start containers
+        run: |
+          docker-compose -f docker-compose.yaml up -d --build
+
+      # Step 6: Wait for MongoDB to be ready (optional, but can be helpful to ensure MongoDB is up)
+      - name: Wait for MongoDB to be ready
+        run: |
+          sleep 15  # Wait for the MongoDB service to be up
+
+      # Step 7: Run the tests inside the running backend container
+      - name: Run Tests inside Docker container
+        run: |
+          docker exec -it backend npm run test -- --coverage
+
+      # Step 8: Tear down containers after tests
+      - name: Tear down containers
+        run: |
+          docker-compose down
