@@ -5,7 +5,7 @@ FROM node:18-alpine
 WORKDIR /app
 
 # Step 3: Copy package.json and package-lock.json to the container
-COPY Backend/package.json ./
+COPY package.json ./
 
 COPY .env.example .env
 
