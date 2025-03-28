@@ -12,6 +12,10 @@ COPY .env.example .env
 # Step 4: Install dependencies, including dev dependencies
 RUN npm install
 
+# Step 5: Install NestJS CLI globally
+RUN npm install -g @nestjs/cli
+
+
 # Step 5: Copy the rest of the application files into the container
 COPY Backend/ .
 
