@@ -17,8 +17,6 @@ COPY Backend/ .
 
 # Step 6: Build the application (this will transpile TypeScript to JavaScript)
 RUN npm run build
-# Step 6: Set the environment to development
-ENV NODE_ENV=development
 
 # Step 7: Expose the port the app will run on
 EXPOSE 3000

@@ -32,10 +32,10 @@ jobs:
       - name: Build and start containers
         run: |
           docker-compose up -d --build
-          
+
       - name: Install backend dependencies
         run: |
-          docker-compose exec backend npm install
+          docker ps -a
 
     #   - name: Build the application inside Docker container
     #     run: |
