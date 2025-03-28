@@ -5,27 +5,26 @@ FROM node:18-alpine
 WORKDIR /app
 
 # Step 3: Copy package.json and package-lock.json to the container
-COPY package.json ./
+COPY Backend/package.json ./
+COPY Backend/package-lock.json ./
 
-COPY .env.example .env
+# Step 4: Copy .env.example as .env (if you have the .env file in Backend folder)
+COPY Backend/.env.example .env
 
+# Step 5: Set environment variable for development
 ENV NODE_ENV=development
 
-# Step 4: Install dependencies, including dev dependencies
+# Step 6: Install dependencies
 RUN npm install
 
-# Step 5: Install NestJS CLI globally
+# Step 7: Install NestJS CLI globally
 RUN npm install -g @nestjs/cli
 
+# Step 8: Copy the rest of the application files into the container
+COPY Backend/ ./
 
-# Step 5: Copy the rest of the application files into the container
-COPY Backend/ .
-
-# # Step 6: Build the application (this will transpile TypeScript to JavaScript)
-# RUN npm run build
-
-# Step 7: Expose the port the app will run on
+# Step 9: Expose the port the app will run on
 EXPOSE 3000
 
-# Step 8: Run the app in development mode (watch mode)
+# Step 10: Run the app in development mode (watch mode)
 CMD ["npm", "run", "start"]
