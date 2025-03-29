@@ -33,17 +33,22 @@ jobs:
         run: |
           docker-compose up -d --build
 
-      # Step 5: Run Tests inside Docker container with coverage
+      # Step 5: Install backend dependencies (via Docker)
+      - name: Install backend dependencies
+        run: |
+          docker-compose exec -T backend npm install
+
+      # Step 6: Run Tests inside Docker container with coverage
       - name: Run Tests inside Docker container with coverage
         run: |
           docker-compose exec -T backend npm run test -- --coverage || echo "Tests failed, but continuing pipeline"
 
-      # Step 6: Run the tests inside the backend container
+      # Step 7: Run the logs inside the backend container
       - name: Run Tests inside Docker container
         run: |
           docker-compose logs backend
 
-      # Step 7: Tear down containers after tests
+      # Step 8: Tear down containers after tests
       - name: Tear down containers
         run: |
           docker-compose down
