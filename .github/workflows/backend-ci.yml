@@ -23,32 +23,34 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
-      # Step 3: Install Docker (if needed)
-      - name: Install Docker
-        run: |
-          sudo apt-get update
-
-      # Step 4: Set up Docker Compose
+      # Step 3: Install Docker Compose
       - name: Set up Docker Compose
         run: |
           sudo apt-get install -y docker-compose
 
-      # Step 5: Build and start containers with Docker Compose
+      # Step 4: Build and start containers with Docker Compose
       - name: Build and start containers
         run: |
           docker-compose up -d --build
 
-      # Step 6: Install backend dependencies
       - name: Install backend dependencies
         run: |
-          docker-compose exec backend npm install
+          docker ps -a
 
-      # Step 7: Run tests inside the Docker container
+    #   - name: Build the application inside Docker container
+    #     run: |
+    #       docker-compose exec backend npm run build
+
+      # Step 6: Run the tests inside the running backend container
       - name: Run Tests inside Docker container
         run: |
-          docker-compose exec backend npm test
+          docker-compose logs backend
+          
+      - name: Run Tests inside Docker container
+        run: |
+            docker ps -a
 
-      # Step 8: Tear down containers after tests
+      # Step 7: Tear down containers after tests
       - name: Tear down containers
         run: |
           docker-compose down

@@ -1,21 +1,30 @@
-# Step 1: Use Node.js image
+# Stage 1: Build
 FROM node:20 AS build
 
-# Step 2: Set working directory in the container
 WORKDIR /app
 
-# Step 3: Copy package.json and package-lock.json for backend
+# Copy package.json and package-lock.json
 COPY Backend/package*.json ./
 
-# Step 4: Ensure package.json exists and then install dependencies
-RUN if [ -f package.json ]; then echo "package.json exists"; else echo "package.json missing"; exit 1; fi && npm install
+# Install dependencies
+RUN npm install
 
-# Step 5: Copy the rest of the files for backend
+# Copy the rest of the application files
 COPY Backend/ .
 
-# RUN npm run seed
-# Step 7: Expose port (NestJS default port is 3000)
+# Stage 2: Production (lighter image)
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Copy built files and dependencies from the previous stage
+COPY --from=build /app /app
+
+# Expose port (default NestJS port)
 EXPOSE 3000
 
-# Step 8: Start the backend application
+# Health check (optional)
+HEALTHCHECK CMD curl --fail http://localhost:3000/health || exit 1
+
+# Start the backend application
 CMD ["npm", "run", "start:dev"]
