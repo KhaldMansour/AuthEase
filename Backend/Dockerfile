@@ -7,8 +7,8 @@ WORKDIR /app
 # Step 3: Copy package.json and package-lock.json for backend
 COPY Backend/package*.json ./
 
-# Step 4: Install dependencies for backend
-RUN npm install
+# Step 4: Ensure package.json exists and then install dependencies
+RUN if [ -f package.json ]; then echo "package.json exists"; else echo "package.json missing"; exit 1; fi && npm install
 
 # Step 5: Copy the rest of the files for backend
 COPY Backend/ .
