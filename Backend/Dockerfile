@@ -5,13 +5,16 @@ FROM node:20 AS build
 WORKDIR /backend
 
 # Step 3: Copy package.json and package-lock.json for backend
-COPY Backend/package*.json .
+COPY Backend/package*.json ./
 
 # Step 4: Install dependencies for backend
 RUN npm install
 
+# Step 4: Verify the files were copied (useful for debugging)
+RUN ls -la /backend
+
 # Step 5: Copy the rest of the files for backend
-COPY Backend/ .
+COPY Backend/ ./
 
 # RUN npm run seed
 # Step 7: Expose port (NestJS default port is 3000)
