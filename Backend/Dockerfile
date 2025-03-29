@@ -8,11 +8,6 @@ WORKDIR /app
 COPY Backend/package.json ./
 COPY Backend/package-lock.json ./
 
-# Step 4: Copy .env.example as .env (if you have the .env file in Backend folder)
-# COPY .env.example .env
-
-# Step 5: Set environment variable for development
-ENV NODE_ENV=development
 
 # Step 6: Install dependencies
 RUN npm install
@@ -21,7 +16,7 @@ RUN npm install
 RUN npm install -g @nestjs/cli
 
 # Step 8: Copy the rest of the application files into the container
-COPY Backend/ ./
+COPY Backend/ .
 
 # Step 9: Expose the port the app will run on
 EXPOSE 3000
