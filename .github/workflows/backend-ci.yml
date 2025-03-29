@@ -45,7 +45,7 @@ jobs:
       # Step 6: Run Tests inside Docker container with coverage
       - name: Run Tests inside Docker container with coverage
         run: |
-          docker-compose exec -T backend sh -c "npm run test -- --coverage" || echo "Tests failed, but continuing pipeline"
+          docker-compose exec -T backend sh -c "npm run test -- --coverage"
 
       # Step 7: Run the logs inside the backend container
       - name: Run Tests inside Docker container
