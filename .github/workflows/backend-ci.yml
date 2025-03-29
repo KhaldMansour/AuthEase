@@ -36,13 +36,14 @@ jobs:
       # Step 6: Run the tests inside the backend container with coverage
       - name: Run Tests inside Docker container with coverage
         run: |
-          docker-compose exec backend npm run test -- --coverage
+          docker-compose exec -T backend npm run test -- --coverage
+
 
       # Step 7: Check for test failures and break the pipeline if any test fails
       - name: Check test results
         run: |
           # Capture the exit code of the tests and fail the pipeline if it's non-zero
-          docker-compose exec backend npm run test -- --coverage
+          docker-compose exec -T backend npm run test -- --coverage
           if [ $? -ne 0 ]; then
             echo "Tests failed, breaking the pipeline"
             exit 1

@@ -31,7 +31,7 @@ services:
     ports:
       - "4000:3000"
     volumes:
-      - ./Backend:/app 
+      - ./Backend:/backend 
     networks:
       - app-network
 
@@ -48,8 +48,8 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./Frontend:/app  
-      - /app/node_modules 
+      - ./Frontend:/frontend  
+      - /frontend/node_modules 
     networks:
       - app-network
 
