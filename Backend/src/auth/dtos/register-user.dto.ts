@@ -8,6 +8,7 @@ export class RegisterUserDto {
   })
   @IsString()
   @IsNotEmpty()
+  @MinLength(3)
     firstName: string;
 
   @ApiProperty({
@@ -15,12 +16,15 @@ export class RegisterUserDto {
     example: 'Doe'
   })
   @IsString()
+  @MinLength(3)
+  @IsNotEmpty()
     lastName: string;
 
   @ApiProperty({
     description: 'The email of the user',
     example: 'user@example.com'
   })
+  @IsNotEmpty()
   @IsEmail()
     email: string;
 
