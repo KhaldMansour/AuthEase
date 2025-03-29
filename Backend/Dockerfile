@@ -4,7 +4,7 @@ FROM node:20 AS build
 WORKDIR /app
 
 # Copy package.json and package-lock.json
-COPY Backend/package*.json ./
+COPY Backend/package*.json .
 
 # Install dependencies
 RUN npm install
