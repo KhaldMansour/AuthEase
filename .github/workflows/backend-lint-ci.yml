@@ -1,4 +1,4 @@
-name: Backend (Tests) CI with Docker
+name: Backend (Lint) CI with Docker
 
 on:
   push:
@@ -38,12 +38,12 @@ jobs:
         run: |
           docker-compose exec -T backend npm install
 
-      # Step 6: Run Tests inside Docker container with coverage
-      - name: Run Tests inside Docker container with coverage
+      # Step 6: Run Lint inside Docker container
+      - name: Run Lint inside Docker container
         run: |
-          docker-compose exec -T backend sh -c "npm run test -- --coverage"
+          docker-compose exec -T backend sh -c "npm run lint"
 
-      # Step 7: Tear down containers after tests
+      # Step 7: Tear down containers after linting
       - name: Tear down containers
         run: |
           docker-compose down
