@@ -31,7 +31,7 @@ jobs:
       # Step 4: Build and start containers with Docker Compose
       - name: Build and start containers
         run: |
-          docker-compose up -d --build --no-cache
+          docker-compose up -d --build 
 
       # Step 5: Install backend dependencies (via Docker)
       - name: Install backend dependencies
