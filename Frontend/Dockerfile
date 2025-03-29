@@ -2,7 +2,7 @@
 FROM node:18 AS build
 
 # Step 2: Set working directory in the container
-WORKDIR /app
+WORKDIR /frontend
 
 # Step 3: Copy package.json and package-lock.json for frontend
 COPY Frontend/package*.json .
