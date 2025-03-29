@@ -3,11 +3,20 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
+// Define the type for the user data
+interface User {
+  firstName: string;
+  lastName: string;
+  email: string;
+}
+
 export default function Profile() {
   const router = useRouter();
-  const [user, setUser] = useState<{ firstName: string; lastName: string; email: string } | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+
+  // Define the types for state
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
 
   useEffect(() => {
     const fetchProfile = async () => {

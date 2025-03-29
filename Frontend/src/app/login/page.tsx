@@ -3,13 +3,19 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
+interface FormData {
+  email: string;
+  password: string;
+}
+
 export default function Login() {
   const router = useRouter();
-  const [form, setForm] = useState({ email: "", password: "" });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const [form, setForm] = useState<FormData>({ email: "", password: "" });
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setError("");
@@ -29,7 +35,7 @@ export default function Login() {
       }
 
       const data = await res.json();
-      
+
       localStorage.setItem("token", data.data.access_token);
 
       alert("Login successful!");
