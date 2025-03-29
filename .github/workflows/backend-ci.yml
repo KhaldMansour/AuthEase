@@ -39,9 +39,9 @@ jobs:
           docker-compose exec -T backend npm install || echo "installation failed, but continuing pipeline"
 
       # Step 6: Run Tests inside Docker container with coverage
-      # - name: Run Tests inside Docker container with coverage
-      #   run: |
-      #     docker-compose exec -T backend npm run test -- --coverage || echo "Tests failed, but continuing pipeline"
+      - name: Run Tests inside Docker container with coverage
+        run: |
+          docker ps -a
 
       # Step 7: Run the logs inside the backend container
       - name: Run Tests inside Docker container

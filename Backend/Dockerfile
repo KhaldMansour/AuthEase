@@ -10,6 +10,9 @@ COPY Backend/package*.json ./
 # Step 4: Install dependencies for backend
 RUN npm install
 
+# Step 4.1: Install NestJS CLI globally
+RUN npm install -g @nestjs/cli
+
 # Step 4: Verify the files were copied (useful for debugging)
 RUN ls -la /backend
 
