@@ -40,12 +40,12 @@ jobs:
 
       - name: List contents of @nestjs directory
         run: |
-          docker-compose exec backend ls node_modules/@nestjs || echo "Directory not found"
+          docker-compose exec -T backend ls node_modules/@nestjs || echo "Directory not found"
 
       # Step 6: Run Tests inside Docker container with coverage
       - name: Run Tests inside Docker container with coverage
         run: |
-          docker-compose exec backend sh -c "npm run test -- --coverage" || echo "Tests failed, but continuing pipeline"
+          docker-compose exec -T backend sh -c "npm run test -- --coverage" || echo "Tests failed, but continuing pipeline"
 
       # Step 7: Run the logs inside the backend container
       - name: Run Tests inside Docker container
