@@ -1,25 +1,21 @@
-# Step 1: Use an official Node.js image as the base image
-FROM node:18-alpine
+# Step 1: Use Node.js image
+FROM node:20 AS build
 
-# Step 2: Set the working directory inside the container
+# Step 2: Set working directory in the container
 WORKDIR /app
 
-# Step 3: Copy package.json and package-lock.json to the container
-COPY Backend/package.json ./
-COPY Backend/package-lock.json ./
+# Step 3: Copy package.json and package-lock.json for backend
+COPY Backend/package*.json ./
 
-
-# Step 6: Install dependencies
+# Step 4: Install dependencies for backend
 RUN npm install
 
-# Step 7: Install NestJS CLI globally
-RUN npm install -g @nestjs/cli
-
-# Step 8: Copy the rest of the application files into the container
+# Step 5: Copy the rest of the files for backend
 COPY Backend/ .
 
-# Step 9: Expose the port the app will run on
+# RUN npm run seed
+# Step 7: Expose port (NestJS default port is 3000)
 EXPOSE 3000
 
-# Step 10: Run the app in development mode (watch mode)
-CMD ["npm", "run", "start"]
+# Step 8: Start the backend application
+CMD ["npm", "run", "start:dev"]
