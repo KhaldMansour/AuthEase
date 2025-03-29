@@ -46,9 +46,9 @@ services:
     depends_on:
       - backend
     ports:
-      - "3000:3000"  # Exposing NextJS on port 3000
+      - "3000:3000"
     volumes:
-      - ./Frontend:/app  # Mount local code to container
+      - ./Frontend:/app  
       - /app/node_modules 
     networks:
       - app-network

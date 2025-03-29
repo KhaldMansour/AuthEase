@@ -8,7 +8,7 @@ WORKDIR /frontend
 COPY Frontend/package*.json .
 
 # Step 4: Verify the files were copied (useful for debugging)
-RUN ls -la /app
+RUN ls -la /frontend
 
 # Step 5: Install dependencies for frontend
 RUN npm install
