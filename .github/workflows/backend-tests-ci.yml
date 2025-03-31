@@ -43,7 +43,12 @@ jobs:
         run: |
           docker-compose exec -T backend sh -c "npm run test -- --coverage"
 
-      # Step 7: Tear down containers after tests
+      # Step 8: Check logs from the Docker containers
+      - name: Check Docker container logs
+        run: |
+          docker-compose logs backend
+
+      # Step 9: Tear down containers after tests
       - name: Tear down containers
         run: |
           docker-compose down

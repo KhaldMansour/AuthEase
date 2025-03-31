@@ -31,7 +31,8 @@ services:
     ports:
       - "4000:3000"
     volumes:
-      - ./Backend:/backend 
+      - ./Backend:/backend
+      - /backend/node_modules
     networks:
       - app-network
 
